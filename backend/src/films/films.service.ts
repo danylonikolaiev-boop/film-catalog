@@ -16,6 +16,10 @@ export class FilmsService {
     findAll(): Film[]{
         return this.films;
     }
+    findOne(id: string): Film | null {
+        const task = this.films.find((t) => t.id === id);
+        return task || null; 
+    }
     create(dto: CreateFilmDto): Film{
         const newFilm: Film = {
             id: Date.now().toString(),

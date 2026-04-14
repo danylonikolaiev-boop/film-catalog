@@ -27,17 +27,15 @@ export class FilmsService {
         return film || null; 
     }
 
-        searchByTitle(titleQuery: string): Film[] {
+    searchByTitle(titleQuery: string): Film[] {
         const lowerCaseQuery = titleQuery.toLowerCase();
-        return this.films.filter((film) => 
-            film.title.toLowerCase().includes(lowerCaseQuery)
+        return this.films.filter((film) => film.title.toLowerCase().includes(lowerCaseQuery)
         );
     }
 
     findByGenre(genre: string): Film[] {
         const lowerCaseGenre = genre.toLowerCase();
-        return this.films.filter((film) => 
-            film.genres.some((g) => g.toLowerCase() === lowerCaseGenre)
+        return this.films.filter((film) => film.genres.some((g) => g.toLowerCase() === lowerCaseGenre)
         );
     }
 

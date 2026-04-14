@@ -28,15 +28,17 @@ export class FilmsService {
     }
 
     searchByTitle(titleQuery: string): Film[] {
-        const lowerCaseQuery = titleQuery.toLowerCase();
-        return this.films.filter((film) => film.title.toLowerCase().includes(lowerCaseQuery)
+        const lowerCaseTitle = titleQuery.toLowerCase();
+        return this.films.filter((film) => film.title.toLowerCase().includes(lowerCaseTitle)
         );
     }
 
-    findByGenre(genre: string): Film[] {
-        const lowerCaseGenre = genre.toLowerCase();
-        return this.films.filter((film) => film.genres.some((g) => g.toLowerCase() === lowerCaseGenre)
-        );
+    findByGenres(genresArray: string[]): Film[] {
+        const lowerCaseGenres = genresArray.map(g => g.toLowerCase());
+        
+        return this.films.filter((film) => {
+            return lowerCaseGenres.every((targetGenre) => film.genres.some((filmGenre) => filmGenre.toLowerCase() === targetGenre));
+        });
     }
 
     filterByRating(minRating: number, maxRating: number): Film[] {

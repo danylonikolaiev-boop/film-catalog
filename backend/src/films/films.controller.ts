@@ -39,9 +39,13 @@ export class FilmsController {
         return this.filmsService.filterByRating(minRating, maxRating);
     }
 
-    @Get('genre/:genreName')
-    findByGenre(@Param('genreName') genreName: string): Film[] {
-        return this.filmsService.findByGenre(genreName);
+    @Get('filter/genres')
+    findByGenres(@Query('tags') tags: string): Film[] {
+        if (!tags) {
+            return this.filmsService.findAll();
+        }
+        const genresArray = tags.split(',').map(tag => tag.trim());
+        return this.filmsService.findByGenres(genresArray);
     }
 
     @Get(':id')

@@ -10,7 +10,7 @@ import styles from './CreateFilmPage.module.css';
 const filmSchema = z.object({
   title: z.string().min(1, 'Назва фільму обовʼязкова'),
   description: z.string().optional(),
-  releaseYear: z.number({ message: "Введіть рік" }).min(1895, 'Рік не може бути меншим за 1895'),
+  releaseYear: z.number({ message: "Введіть рік" }),
   rating: z.number({ message: "Введіть рейтинг" }).min(0, 'Мінімум 0').max(10, 'Максимум 10'),
   posterUrl: z.string().url('Має бути коректним посиланням (URL)').optional().or(z.literal('')),
   genreIds: z.array(z.string()).min(1, 'Оберіть хоча б один жанр'),

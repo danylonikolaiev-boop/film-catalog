@@ -54,7 +54,6 @@ export const HomePage = () => {
               <p className={styles.cardInfo}><strong>Рік:</strong> {film.releaseYear}</p>
               <p className={styles.cardInfo}><strong>Рейтинг:</strong> {film.rating}/10</p>
               
-              {/* Футер картки з кнопками */}
               <div className={styles.cardFooter}>
                 <Link to={`/films/${film.id}`} className={styles.detailsLink}>
                   Детальніше &rarr;

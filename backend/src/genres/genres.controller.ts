@@ -1,4 +1,14 @@
-import { Controller, Get, Post, Body, Patch, Param, Delete } from '@nestjs/common';
+import { 
+  Controller, 
+  Get, 
+  Post, 
+  Body, 
+  Patch, 
+  Param, 
+  Delete, 
+  NotFoundException, 
+  HttpCode 
+} from '@nestjs/common';
 import { GenresService } from './genres.service';
 import { CreateGenreDto } from './dto/create-genre.dto';
 import { UpdateGenreDto } from './dto/update-genre.dto';
@@ -8,6 +18,7 @@ export class GenresController {
   constructor(private readonly genresService: GenresService) {}
 
   @Post()
+  @HttpCode(201)
   create(@Body() createGenreDto: CreateGenreDto) {
     return this.genresService.create(createGenreDto);
   }
@@ -19,16 +30,28 @@ export class GenresController {
 
   @Get(':id')
   findOne(@Param('id') id: string) {
-    return this.genresService.findOne(+id);
+    const genre = this.genresService.findOne(id);
+    if (!genre) {
+      throw new NotFoundException(`Жанр з ID ${id} не знайдено`);
+    }
+    return genre;
   }
 
   @Patch(':id')
   update(@Param('id') id: string, @Body() updateGenreDto: UpdateGenreDto) {
-    return this.genresService.update(+id, updateGenreDto);
+    const updatedGenre = this.genresService.update(id, updateGenreDto);
+    if (!updatedGenre) {
+      throw new NotFoundException(`Жанр з ID ${id} не знайдено`);
+    }
+    return updatedGenre;
   }
 
   @Delete(':id')
   remove(@Param('id') id: string) {
-    return this.genresService.remove(+id);
+    const isDeleted = this.genresService.remove(id);
+    if (!isDeleted) {
+      throw new NotFoundException(`Жанр з ID ${id} не знайдено`);
+    }
+    return { message: `Жанр з ID ${id} успішно видалено` };
   }
 }

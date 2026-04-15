@@ -1,26 +1,57 @@
 import { Injectable } from '@nestjs/common';
 import { CreateGenreDto } from './dto/create-genre.dto';
 import { UpdateGenreDto } from './dto/update-genre.dto';
+import { Genre } from './entities/genre.entity';
 
 @Injectable()
 export class GenresService {
-  create(createGenreDto: CreateGenreDto) {
-    return 'This action adds a new genre';
+
+  private genres: Genre[] = [
+    { id: '101', name: 'Sci-Fi' },
+    { id: '102', name: 'Action' },
+    { id: '103', name: 'Drama' }
+  ];
+
+  create(dto: CreateGenreDto): Genre {
+    const newGenre: Genre = {
+      id: Date.now().toString(),
+      name: dto.name,
+    };
+    this.genres.push(newGenre);
+    return newGenre;
   }
 
-  findAll() {
-    return `This action returns all genres`;
+  findAll(): Genre[] {
+    return this.genres;
   }
 
-  findOne(id: number) {
-    return `This action returns a #${id} genre`;
+  findOne(id: string): Genre | null {
+    const genre = this.genres.find((g) => g.id === id);
+    return genre || null;
   }
 
-  update(id: number, updateGenreDto: UpdateGenreDto) {
-    return `This action updates a #${id} genre`;
+  update(id: string, dto: UpdateGenreDto): Genre | null {
+    const genreIndex = this.genres.findIndex((g) => g.id === id);
+    
+    if (genreIndex === -1) {
+      return null;
+    }
+
+    this.genres[genreIndex] = {
+      ...this.genres[genreIndex],
+      ...dto,
+    };
+    return this.genres[genreIndex];
   }
 
-  remove(id: number) {
-    return `This action removes a #${id} genre`;
+  remove(id: string): boolean {
+    const genreIndex = this.genres.findIndex((g) => g.id === id);
+    
+    if (genreIndex === -1) {
+      return false;
+    }
+
+    this.genres.splice(genreIndex, 1);
+    return true;
   }
 }

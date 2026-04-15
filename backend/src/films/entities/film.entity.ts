@@ -5,6 +5,5 @@ export interface Film {
   releaseYear: number;
   rating: number;
   posterUrl?: string;
-  genres: string[];
-  reviews: string[];
+  genreIds: string[]
 }

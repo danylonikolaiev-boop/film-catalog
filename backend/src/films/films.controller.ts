@@ -40,12 +40,14 @@ export class FilmsController {
     }
 
     @Get('filter/genres')
-    findByGenres(@Query('tags') tags: string): Film[] {
-        if (!tags) {
-            return this.filmsService.findAll();
+    findByMultipleGenres(@Query('ids') ids: string): Film[] {
+        if (!ids) {
+            return this.filmsService.findAll(); 
         }
-        const genresArray = tags.split(',').map(tag => tag.trim());
-        return this.filmsService.findByGenres(genresArray);
+        
+        const genreIdsArray = ids.split(',').map(id => id.trim());
+        
+        return this.filmsService.findByMultipleGenreIds(genreIdsArray);
     }
 
     @Get(':id')
@@ -61,16 +63,6 @@ export class FilmsController {
     @HttpCode(201)
     create(@Body() createFilmDto: CreateFilmDto): Film {
         return this.filmsService.create(createFilmDto);
-    }
-
-    @Post(':id/reviews')
-    @HttpCode(201)
-    addReview(@Param('id') id: string, @Body('text') reviewText: string): Film {
-        const updatedFilm = this.filmsService.addReview(id, reviewText);
-        if (!updatedFilm) {
-            throw new NotFoundException(`Фільм з ID ${id} не знайдено`);
-        }
-        return updatedFilm;
     }
 
     @Patch(':id')

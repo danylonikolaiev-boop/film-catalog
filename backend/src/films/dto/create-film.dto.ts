@@ -30,13 +30,8 @@ export class CreateFilmDto {
   @IsOptional()
   @IsUrl({}, { message: 'У постер має бути валідне посилання' })
   posterUrl?: string;
-
-  @IsArray({ message: 'Жанри мають бути масивом' })
-  @IsString({ each: true, message: 'Жанри у масиві мають бути текстом' })
-  genres: string[];
-
-  @IsOptional()
+  
   @IsArray()
   @IsString({ each: true })
-  reviews?: string[]; 
+  genreIds: string[];
 }

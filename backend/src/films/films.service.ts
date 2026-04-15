@@ -13,8 +13,7 @@ export class FilmsService {
             releaseYear: 2024,
             rating: 8.8,
             posterUrl: '',
-            genres: ['Sci-Fi', 'Adventure', 'Drama'],
-            reviews: ['Шедевр візуального мистецтва!', 'Музика Ціммера просто неймовірна.']
+            genreIds: ['101', '103'],
         }
     ];
 
@@ -33,28 +32,14 @@ export class FilmsService {
         );
     }
 
-    findByGenres(genresArray: string[]): Film[] {
-        const lowerCaseGenres = genresArray.map(g => g.toLowerCase());
-        
+    findByMultipleGenreIds(genreIdsToFind: string[]): Film[] {
         return this.films.filter((film) => {
-            return lowerCaseGenres.every((targetGenre) => film.genres.some((filmGenre) => filmGenre.toLowerCase() === targetGenre));
+            return genreIdsToFind.every((id) => film.genreIds.includes(id));
         });
     }
 
     filterByRating(minRating: number, maxRating: number): Film[] {
         return this.films.filter((film) => film.rating >= minRating && film.rating <= maxRating );
-    }
-
-    addReview(id: string, reviewText: string): Film | null {
-        const filmIndex = this.films.findIndex((f) => f.id === id);
-        
-        if (filmIndex === -1) {
-            return null;
-        }
-        
-        this.films[filmIndex].reviews.push(reviewText);
-        
-        return this.films[filmIndex];
     }
 
     create(dto: CreateFilmDto): Film {
@@ -65,8 +50,7 @@ export class FilmsService {
             releaseYear: dto.releaseYear,
             rating: dto.rating,
             posterUrl: dto.posterUrl || "",
-            genres: dto.genres || [],
-            reviews: dto.reviews || []
+            genreIds: dto.genreIds || [],
         };
         this.films.push(newFilm);
         return newFilm;

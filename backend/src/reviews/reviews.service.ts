@@ -5,19 +5,14 @@ import { Review } from './entities/review.entity';
 
 @Injectable()
 export class ReviewsService {
-  // База відгуків (in-memory)
   private reviews: Review[] = [];
 
   create(dto: CreateReviewDto): Review {
     const newReview: Review = {
-      id: Date.now().toString(),
+       id: Date.now().toString(),
       ...dto,
       likes: 0,
       createdAt: new Date(),
-      filmId: '',
-      author: '',
-      text: '',
-      rating: 0
     };
     this.reviews.push(newReview);
     return newReview;

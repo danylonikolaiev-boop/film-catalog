@@ -1,0 +1,181 @@
+/* FilmDetailsPage.module.css */
+
+.container {
+  max-width: 800px;
+  margin: 0 auto;
+  padding: 20px;
+}
+
+.backLink {
+  text-decoration: none;
+  color: #007bff;
+  font-weight: 500;
+  display: inline-block;
+  margin-bottom: 20px;
+}
+
+.backLink:hover {
+  text-decoration: underline;
+}
+
+.filmHeader {
+  display: flex;
+  gap: 24px;
+  margin-bottom: 40px;
+}
+
+.poster {
+  width: 300px;
+  border-radius: 8px;
+  object-fit: cover;
+  box-shadow: 0 4px 12px rgba(0,0,0,0.1);
+}
+
+.filmInfo {
+  flex: 1;
+}
+
+.title {
+  margin-top: 0;
+  margin-bottom: 16px;
+  font-size: 2rem;
+}
+
+.meta {
+  margin: 8px 0;
+  font-size: 1.1rem;
+}
+
+.genreTag {
+  display: inline-block;
+  background-color: #e9ecef;
+  padding: 4px 10px;
+  border-radius: 16px;
+  margin-right: 8px;
+  font-size: 0.9rem;
+}
+
+.deleteButton {
+  background-color: #d32f2f;
+  color: white;
+  border: none;
+  padding: 8px 16px;
+  border-radius: 4px;
+  cursor: pointer;
+  margin-top: 16px;
+  font-weight: bold;
+}
+
+.deleteButton:hover {
+  background-color: #b71c1c;
+}
+
+.divider {
+  border: 0;
+  height: 1px;
+  background: #ddd;
+  margin: 40px 0;
+}
+
+.reviewsSection {
+  margin-top: 40px;
+}
+
+/* Стилі для форми відгуку */
+.reviewForm {
+  background: #f8f9fa;
+  padding: 20px;
+  border-radius: 8px;
+  margin-bottom: 30px;
+  display: flex;
+  flex-direction: column;
+  gap: 12px;
+}
+
+.formGroup {
+  display: flex;
+  flex-direction: column;
+  gap: 4px;
+}
+
+.input, .textarea {
+  padding: 10px;
+  border: 1px solid #ccc;
+  border-radius: 4px;
+  font-family: inherit;
+}
+
+.textarea {
+  resize: vertical;
+  min-height: 80px;
+}
+
+.submitBtn {
+  background-color: #28a745;
+  color: white;
+  border: none;
+  padding: 10px;
+  border-radius: 4px;
+  cursor: pointer;
+  font-weight: bold;
+  align-self: flex-start;
+}
+
+.submitBtn:hover:not(:disabled) {
+  background-color: #218838;
+}
+
+.errorText {
+  color: #d32f2f;
+  font-size: 0.85rem;
+}
+
+/* Стилі для списку відгуків */
+.reviewsList {
+  display: flex;
+  flex-direction: column;
+  gap: 16px;
+}
+
+.reviewCard {
+  border: 1px solid #ddd;
+  padding: 16px;
+  border-radius: 8px;
+  background: white;
+}
+
+.reviewHeader {
+  display: flex;
+  justify-content: space-between;
+  margin-bottom: 10px;
+}
+
+.reviewAuthor {
+  font-weight: bold;
+  font-size: 1.1rem;
+}
+
+.reviewRating {
+  color: #f39c12;
+  font-weight: bold;
+}
+
+.reviewText {
+  margin: 0 0 16px 0;
+  line-height: 1.5;
+}
+
+.likeBtn {
+  background: #ffebee;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 4px;
+  cursor: pointer;
+  color: #d32f2f;
+  font-weight: 500;
+  transition: background 0.2s;
+}
+
+.likeBtn:hover:not(:disabled) {
+  background: #ffcdd2;
+}

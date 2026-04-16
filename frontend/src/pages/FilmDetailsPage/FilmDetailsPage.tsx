@@ -78,6 +78,13 @@ export const FilmDetailsPage = () => {
     addReviewMutation.mutate(data);
   };
 
+  const deleteReviewMutation = useMutation({
+    mutationFn: (reviewId: string) => apiClient.delete(`/reviews/${reviewId}`),
+    onSuccess: () => {
+      queryClient.invalidateQueries({ queryKey: ['reviews', id] });
+    },
+  });
+
   if (isFilmLoading) return <div style={{ padding: '20px', textAlign: 'center' }}>Завантаження деталей...</div>;
   if (!film) return <div style={{ padding: '20px', color: 'red' }}>Фільм не знайдено</div>;
 
@@ -180,6 +187,18 @@ export const FilmDetailsPage = () => {
                   className={styles.likeBtn}
                 >
                   Корисно ({review.likes})
+                </button>
+                <button 
+                  onClick={() => {
+                    if (window.confirm('Видалити цей відгук?')) {
+                      deleteReviewMutation.mutate(review.id);
+                    }
+                  }}
+                  disabled={deleteReviewMutation.isPending}
+                  className={styles.deleteButton}
+                  style={{ marginLeft: '10px' }}
+                >
+                  🗑 Видалити
                 </button>
               </div>
             ))}

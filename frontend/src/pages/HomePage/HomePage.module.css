@@ -44,3 +44,61 @@
   border: 1px solid red;
   cursor: pointer;
 }
+
+.filterSection {
+  margin-bottom: 20px;
+  padding: 15px;
+  border: 1px solid black;
+}
+
+.filterTitle {
+  margin: 0 0 10px 0;
+  font-size: 1rem;
+}
+
+.genreTags {
+  display: flex;
+  flex-wrap: wrap;
+  gap: 10px;
+}
+
+.genreTag {
+  border: 1px solid black;
+  background: white;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.genreTagActive {
+  border: 1px solid black;
+  background: black;
+  color: white;
+  padding: 5px 10px;
+  cursor: pointer;
+}
+
+.ratingFilter {
+  margin-top: 15px;
+  padding-top: 15px;
+  border-top: 1px dashed black;
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 300px;
+}
+
+.ratingFilter label {
+  font-weight: bold;
+}
+
+.ratingSlider {
+  cursor: pointer;
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 300px;
+  padding: 8px;
+  margin-bottom: 15px;
+  border: 1px solid black;
+}

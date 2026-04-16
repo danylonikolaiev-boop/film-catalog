@@ -1,18 +1,36 @@
+import { useState } from 'react';
 import { Link } from 'react-router-dom';
 import { useQuery, useMutation, useQueryClient } from '@tanstack/react-query';
 import { apiClient } from '../../api/films';
 import type { Film } from '../../types/film';
-
+import type { Genre } from '../../types/genre';
 import styles from './HomePage.module.css';
 
 export const HomePage = () => {
   const queryClient = useQueryClient();
+  
+  const [selectedGenres, setSelectedGenres] = useState<string[]>([]);
+  const [minRating, setMinRating] = useState<number>(0);
+  const [searchQuery, setSearchQuery] = useState<string>('');
+
+  const { data: genres = [] } = useQuery({
+    queryKey: ['genres'],
+    queryFn: async () => {
+      const response = await apiClient.get<Genre[]>('/genres');
+      return response.data;
+    },
+  });
 
   const { data: films, isLoading, isError } = useQuery({
-    queryKey: ['films'],
+    queryKey: ['films', selectedGenres], 
     queryFn: async () => {
-      const response = await apiClient.get<Film[]>('/films');
-      return response.data;
+      if (selectedGenres.length > 0) {
+        const response = await apiClient.get<Film[]>(`/films/filter/genres?ids=${selectedGenres.join(',')}`);
+        return response.data;
+      } else {
+        const response = await apiClient.get<Film[]>('/films');
+        return response.data;
+      }
     },
   });
 
@@ -23,25 +41,87 @@ export const HomePage = () => {
     },
   });
 
-  if (isLoading) return <div className={styles.loading}>Завантаження фільмів...</div>;
-  if (isError) return <div className={styles.error}>Сталася помилка при завантаженні.</div>;
+  const toggleGenre = (genreId: string) => {
+    setSelectedGenres((prev) => 
+      prev.includes(genreId)
+        ? prev.filter(id => id !== genreId)
+        : [...prev, genreId]
+    );
+  };
+
+  if (isLoading) return <div>Завантаження фільмів...</div>;
+  if (isError) return <div>Сталася помилка при завантаженні.</div>;
+
+  const displayedFilms = films?.filter((film) => {
+    const matchesRating = film.rating >= minRating;
+    const matchesSearch = film.title.toLowerCase().includes(searchQuery.toLowerCase());
+    
+    return matchesRating && matchesSearch;
+  }) || [];
 
   return (
     <div>
       <div className={styles.header}>
-        <h2 className={styles.title}>Каталог фільмів</h2>
+        <h2>Каталог фільмів</h2>
         <Link to="/create" className={styles.addButton}>
           + Додати фільм
         </Link>
       </div>
+
+      <div className={styles.filterSection}>
+        <h3 className={styles.filterTitle}>Пошук та фільтри:</h3>
+        
+        <input 
+          type="text" 
+          placeholder="Пошук за назвою..." 
+          value={searchQuery}
+          onChange={(e) => setSearchQuery(e.target.value)}
+          className={styles.searchInput}
+        />
+
+        {genres.length > 0 && (
+          <div className={styles.genreTags}>
+            {genres.map((genre) => (
+              <button
+                key={genre.id}
+                className={selectedGenres.includes(genre.id) ? styles.genreTagActive : styles.genreTag}
+                onClick={() => toggleGenre(genre.id)}
+              >
+                {genre.name}
+              </button>
+            ))}
+            {selectedGenres.length > 0 && (
+              <button 
+                className={styles.genreTag} 
+                style={{ color: 'red', borderColor: 'red' }}
+                onClick={() => setSelectedGenres([])}
+              >
+                ✕ Скинути
+              </button>
+            )}
+          </div>
+        )}
+
+        <div className={styles.ratingFilter}>
+          <label>Мінімальний рейтинг: {minRating}+</label>
+          <input 
+            type="range" 
+            min="0" 
+            max="10" 
+            step="0.5" 
+            value={minRating}
+            onChange={(e) => setMinRating(Number(e.target.value))}
+            className={styles.ratingSlider}
+          />
+        </div>
+      </div>
       
-      {!films || films.length === 0 ? (
-        <p className={styles.emptyMessage}>Фільмів поки немає. Додайте перший!</p>
+      {displayedFilms.length === 0 ? (
+        <p>Фільмів не знайдено.</p>
       ) : (
         <div className={styles.grid}>
-          {films.map((film) => (
+          {displayedFilms.map((film) => (
             <div key={film.id} className={styles.card}>
-              
               {film.posterUrl && (
                 <img 
                   src={film.posterUrl} 
@@ -50,14 +130,12 @@ export const HomePage = () => {
                 />
               )}
               
-              <h3 className={styles.cardTitle}>{film.title}</h3>
-              <p className={styles.cardInfo}><strong>Рік:</strong> {film.releaseYear}</p>
-              <p className={styles.cardInfo}><strong>Рейтинг:</strong> {film.rating}/10</p>
+              <h3>{film.title}</h3>
+              <p><strong>Рік:</strong> {film.releaseYear}</p>
+              <p><strong>Рейтинг:</strong> {film.rating}/10</p>
               
               <div className={styles.cardFooter}>
-                <Link to={`/films/${film.id}`} className={styles.detailsLink}>
-                  Детальніше &rarr;
-                </Link>
+                <Link to={`/films/${film.id}`}>Детальніше &rarr;</Link>
                 
                 <button 
                   className={styles.deleteButton}
@@ -71,7 +149,6 @@ export const HomePage = () => {
                   {deleteMutation.isPending ? 'Видалення...' : '🗑 Видалити'}
                 </button>
               </div>
-
             </div>
           ))}
         </div>

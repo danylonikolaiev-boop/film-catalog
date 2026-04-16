@@ -1,0 +1,49 @@
+.container {
+  margin-bottom: 20px;
+}
+
+.form {
+  display: flex;
+  gap: 10px;
+  margin-bottom: 20px;
+  align-items: flex-start;
+}
+
+.input {
+  border: 1px solid black;
+  padding: 5px;
+}
+
+.submitBtn {
+  border: 1px solid black;
+  padding: 5px;
+  cursor: pointer;
+}
+
+.errorText {
+  color: red;
+  font-size: 12px;
+  display: block;
+  margin-top: 5px;
+}
+
+.list {
+  display: flex;
+  flex-direction: column;
+  gap: 10px;
+  max-width: 400px;
+}
+
+.listItem {
+  display: flex;
+  justify-content: space-between;
+  border: 1px solid black;
+  padding: 10px;
+}
+
+.deleteBtn {
+  color: red;
+  border: 1px solid red;
+  background: none;
+  cursor: pointer;
+}

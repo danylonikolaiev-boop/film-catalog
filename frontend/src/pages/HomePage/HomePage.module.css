@@ -1,59 +1,52 @@
 .header {
   display: flex;
   justify-content: space-between;
-  margin-bottom: 20px;
+  align-items: center;
+  margin-bottom: 30px;
 }
 
 .addButton {
-  border: 1px solid black;
-  padding: 5px 10px;
+  background-color: #0066ff;
+  color: white;
+  padding: 10px 20px;
+  border-radius: 8px;
   text-decoration: none;
-  color: black;
+  font-weight: 600;
+  transition: background-color 0.2s;
 }
 
-.grid {
-  display: grid;
-  grid-template-columns: repeat(auto-fill, minmax(200px, 1fr));
-  gap: 15px;
+.addButton:hover {
+  background-color: #0052cc;
 }
 
-.card {
-  border: 1px solid black;
-  padding: 10px;
-  display: flex;
-  flex-direction: column;
-}
-
-.poster {
-  width: 100%;
-  height: 250px;
-  object-fit: cover;
-  margin-bottom: 10px;
-}
-
-.cardFooter {
-  display: flex;
-  justify-content: space-between;
-  margin-top: auto;
-  padding-top: 10px;
-}
-
-.deleteButton {
-  color: red;
-  background: none;
-  border: 1px solid red;
-  cursor: pointer;
-}
-
+/* Фільтри */
 .filterSection {
-  margin-bottom: 20px;
-  padding: 15px;
-  border: 1px solid black;
+  background-color: #f8f9fa;
+  padding: 20px;
+  border-radius: 12px;
+  margin-bottom: 30px;
+  border: 1px solid #eaeaea;
 }
 
 .filterTitle {
-  margin: 0 0 10px 0;
+  margin: 0 0 16px 0;
+  font-size: 1.1rem;
+  color: #111;
+}
+
+.searchInput {
+  width: 100%;
+  max-width: 400px;
+  padding: 10px 14px;
+  border: 1px solid #ccc;
+  border-radius: 8px;
+  margin-bottom: 16px;
   font-size: 1rem;
+  outline: none;
+}
+
+.searchInput:focus {
+  border-color: #0066ff;
 }
 
 .genreTags {
@@ -63,42 +56,97 @@
 }
 
 .genreTag {
-  border: 1px solid black;
   background: white;
-  padding: 5px 10px;
+  border: 1px solid #ddd;
+  color: #555;
+  padding: 6px 14px;
+  border-radius: 20px;
   cursor: pointer;
+  font-size: 0.9rem;
+  transition: all 0.2s;
+}
+
+.genreTag:hover {
+  border-color: #bbb;
 }
 
 .genreTagActive {
-  border: 1px solid black;
-  background: black;
+  background: #111;
+  border: 1px solid #111;
   color: white;
-  padding: 5px 10px;
+  padding: 6px 14px;
+  border-radius: 20px;
   cursor: pointer;
+  font-size: 0.9rem;
 }
 
 .ratingFilter {
-  margin-top: 15px;
-  padding-top: 15px;
-  border-top: 1px dashed black;
+  margin-top: 20px;
+  padding-top: 20px;
+  border-top: 1px solid #eaeaea;
   display: flex;
   flex-direction: column;
-  gap: 10px;
+  gap: 8px;
   max-width: 300px;
 }
 
-.ratingFilter label {
-  font-weight: bold;
+/* Сітка фільмів */
+.grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(260px, 1fr));
+  gap: 24px;
 }
 
-.ratingSlider {
-  cursor: pointer;
+.card {
+  background: white;
+  border: 1px solid #eaeaea;
+  border-radius: 12px;
+  padding: 16px;
+  display: flex;
+  flex-direction: column;
+  transition: box-shadow 0.2s, transform 0.2s;
 }
 
-.searchInput {
+.card:hover {
+  box-shadow: 0 8px 24px rgba(0,0,0,0.06);
+  transform: translateY(-2px);
+}
+
+.poster {
   width: 100%;
-  max-width: 300px;
-  padding: 8px;
-  margin-bottom: 15px;
-  border: 1px solid black;
+  height: 340px;
+  object-fit: cover;
+  border-radius: 8px;
+  margin-bottom: 16px;
+}
+
+.cardFooter {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-top: auto;
+  padding-top: 16px;
+}
+
+.cardFooter a {
+  color: #0066ff;
+  text-decoration: none;
+  font-weight: 500;
+}
+
+.cardFooter a:hover {
+  text-decoration: underline;
+}
+
+.deleteButton {
+  color: #dc3545;
+  background: none;
+  border: none;
+  cursor: pointer;
+  padding: 6px;
+  border-radius: 6px;
+}
+
+.deleteButton:hover {
+  background-color: #ffeeee;
 }

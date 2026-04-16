@@ -146,7 +146,7 @@ export const HomePage = () => {
                   }}
                   disabled={deleteMutation.isPending}
                 >
-                  {deleteMutation.isPending ? 'Видалення...' : '🗑 Видалити'}
+                  {deleteMutation.isPending ? 'Видалення...' : 'Видалити'}
                 </button>
               </div>
             </div>

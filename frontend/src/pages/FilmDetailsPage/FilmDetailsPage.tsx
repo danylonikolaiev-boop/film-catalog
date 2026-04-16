@@ -123,7 +123,7 @@ export const FilmDetailsPage = () => {
             disabled={deleteFilmMutation.isPending}
             className={styles.deleteButton}
           >
-            {deleteFilmMutation.isPending ? 'Видалення...' : '🗑 Видалити фільм'}
+            {deleteFilmMutation.isPending ? 'Видалення...' : 'Видалити фільм'}
           </button>
         </div>
       </div>
@@ -170,7 +170,7 @@ export const FilmDetailsPage = () => {
         </form>
 
         {reviews.length === 0 ? (
-          <p>Поки немає відгуків. Будьте першим!</p>
+          <p>Поки немає відгуків.</p>
         ) : (
           <div className={styles.reviewsList}>
             {reviews.map(review => (
@@ -198,7 +198,7 @@ export const FilmDetailsPage = () => {
                   className={styles.deleteButton}
                   style={{ marginLeft: '10px' }}
                 >
-                  🗑 Видалити
+                  Видалити
                 </button>
               </div>
             ))}

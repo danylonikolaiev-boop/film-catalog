@@ -1,49 +1,73 @@
 .container {
-  margin-bottom: 20px;
+  max-width: 500px;
+  margin: 0 auto;
 }
 
 .form {
   display: flex;
-  gap: 10px;
-  margin-bottom: 20px;
+  gap: 12px;
+  margin-bottom: 32px;
   align-items: flex-start;
 }
 
-.input {
-  border: 1px solid black;
-  padding: 5px;
+.inputWrapper {
+  flex: 1; 
+  display: flex;
+  flex-direction: column;
 }
 
-.submitBtn {
-  border: 1px solid black;
-  padding: 5px;
-  cursor: pointer;
+.input {
+  width: 100%;
+  box-sizing: border-box;
+  border: 1px solid #ccc;
+  padding: 10px 14px;
+  border-radius: 8px;
+  font-size: 1rem;
+}
+
+.input:focus {
+  outline: none;
+  border-color: #0066ff;
 }
 
 .errorText {
-  color: red;
-  font-size: 12px;
+  color: #dc3545;
+  font-size: 0.85rem;
+  margin-top: 6px;
   display: block;
-  margin-top: 5px;
+}
+
+.submitBtn {
+  background-color: #111;
+  color: white;
+  border: none;
+  padding: 10px 20px;
+  border-radius: 8px;
+  cursor: pointer;
+  font-weight: 600;
 }
 
 .list {
   display: flex;
   flex-direction: column;
-  gap: 10px;
-  max-width: 400px;
+  gap: 12px;
 }
 
 .listItem {
   display: flex;
   justify-content: space-between;
-  border: 1px solid black;
-  padding: 10px;
+  align-items: center;
+  background: white;
+  border: 1px solid #eaeaea;
+  padding: 12px 16px;
+  border-radius: 8px;
 }
 
 .deleteBtn {
-  color: red;
-  border: 1px solid red;
-  background: none;
+  color: #dc3545;
+  background: #fff5f6;
+  border: none;
+  padding: 6px 12px;
+  border-radius: 6px;
   cursor: pointer;
 }

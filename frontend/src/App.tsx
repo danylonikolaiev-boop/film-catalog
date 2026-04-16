@@ -3,6 +3,7 @@ import { HomePage } from './pages/HomePage/HomePage';
 import { FilmDetailsPage } from './pages/FilmDetailsPage/FilmDetailsPage';
 import { CreateFilmPage } from './pages/CreateFilmPage/CreateFilmPage';
 import { GenresPage } from './pages/GenresPage/GenresPage';
+import { EditFilmPage } from './pages/EditFilmPage/EditFilmPage';
 
 function App() {
   return (
@@ -35,6 +36,7 @@ function App() {
             <Route path="/films/:id" element={<FilmDetailsPage />} />
             <Route path="/create" element={<CreateFilmPage />} />
             <Route path="/genres" element={<GenresPage />} />
+            <Route path="/edit/:id" element={<EditFilmPage />} />
             <Route path="*" element={<div style={{ textAlign: 'center', marginTop: '50px' }}>404 - Сторінку не знайдено</div>} />
           </Routes>
         </main>

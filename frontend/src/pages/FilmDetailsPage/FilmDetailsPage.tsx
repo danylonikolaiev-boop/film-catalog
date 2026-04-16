@@ -114,17 +114,34 @@ export const FilmDetailsPage = () => {
           <h3>Опис:</h3>
           <p className={styles.description}>{film.description || 'Опис відсутній.'}</p>
 
-          <button 
-            onClick={() => {
-              if (window.confirm('Ви впевнені, що хочете видалити цей фільм?')) {
-                deleteFilmMutation.mutate();
-              }
-            }}
-            disabled={deleteFilmMutation.isPending}
-            className={styles.deleteButton}
-          >
-            {deleteFilmMutation.isPending ? 'Видалення...' : 'Видалити фільм'}
-          </button>
+          <div style={{ display: 'flex', gap: '12px', marginTop: '24px' }}>
+            <Link 
+              to={`/edit/${film.id}`} 
+              style={{ 
+                backgroundColor: '#f8f9fa', 
+                color: '#111', 
+                border: '1px solid #ccc', 
+                padding: '10px 20px', 
+                borderRadius: '8px', 
+                textDecoration: 'none', 
+                fontWeight: '600' 
+              }}
+            >
+              Редагувати
+            </Link>
+            <button 
+              onClick={() => {
+                if (window.confirm('Ви впевнені, що хочете видалити цей фільм?')) {
+                  deleteFilmMutation.mutate();
+                }
+              }}
+              disabled={deleteFilmMutation.isPending}
+              className={styles.deleteButton}
+              style={{ marginTop: 0 }}
+            >
+              {deleteFilmMutation.isPending ? 'Видалення...' : 'Видалити фільм'}
+            </button>
+          </div>
         </div>
       </div>
 
